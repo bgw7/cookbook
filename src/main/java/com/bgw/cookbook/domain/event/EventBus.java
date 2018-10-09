@@ -1,26 +1,26 @@
 package com.bgw.cookbook.domain.event;
 
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.PublishSubject;
+import io.reactivex.subjects.Subject;
 import org.springframework.stereotype.Component;
-import rx.Observable;
-import rx.subjects.PublishSubject;
-import rx.subjects.Subject;
-
-import java.util.function.Consumer;
 
 @Component
 public class EventBus {
 
-    private final Subject<Event, Event> bus = PublishSubject.create();
+    private final Subject<Event> bus = PublishSubject.create();
 
-    public void post(Event event) {
+    public void dispatch(Event event) {
         bus.onNext(event);
     }
 
-    public void register(ConsumerRegistration consumer) {
-        consumer.accept(bus);
-    }
+    public Disposable register(Subscriber subscriber) { return subscriber.register(bus).subscribe(this::dispatch); }
 
     public Observable<Event> asObservable() { return bus; }
 
-    public interface ConsumerRegistration extends Consumer<Observable<Event>> {}
+    @FunctionalInterface
+    public interface Subscriber {
+        Observable<Event> register(Observable<Event> events);
+    }
 }
