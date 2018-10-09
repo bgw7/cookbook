@@ -4,10 +4,7 @@ import com.bgw.cookbook.domain.chef.Chef;
 import com.bgw.cookbook.domain.chef.ChefService;
 import com.bgw.cookbook.domain.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
@@ -20,8 +17,8 @@ public class ChefController {
     private ChefService chefService;
 
     @GetMapping(path = "/cookbook-events", produces = "text/event-stream")
-    public SseEmitter getEventStream() {
-        return eventService.getStream();
+    public SseEmitter getEventStream(@RequestHeader("ChefId") Long chefId) {
+        return eventService.getStream(chefId);
     }
 
     @GetMapping(path="/chefs/{id}")

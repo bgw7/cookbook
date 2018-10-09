@@ -1,0 +1,26 @@
+Configuration:
+  status: warn
+
+  Appenders:
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss:SS} [%t] %-5level #logger{36} - %msg%n"
+
+    File:
+      name: Application
+      fileName: cookbook-log
+      PatternLayout:
+        Pattern: "%d{HH:mm:ss:SS} [%t] %-5level #logger{36} - %msg%n"
+
+  Loggers:
+    Logger:
+      - name: com.bgw.cookbook
+        level: info
+
+    Root:
+      level: info
+      AppenderRef:
+        - ref: Console
+        - ref: Application
