@@ -8,12 +8,14 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -27,9 +29,18 @@ public class JdbcChefRepositoryTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void getChefById() throws Exception {
+    public void getChefById() {
         when(jdbcTemplate.query(anyString(), any(SqlParameterSource.class), any(ResultSetExtractor.class))).thenReturn(new Chef());
         Chef chef = repository.findById(1L);
         assertNotNull(chef);
+    }
+
+    @Test
+    public void updateChef() {
+        Chef chef = new Chef();
+        chef.setId(2L);
+        chef.setName("joe");
+        repository.updateChef(chef);
+        verify(jdbcTemplate).update(anyString(), any(MapSqlParameterSource.class));
     }
 }

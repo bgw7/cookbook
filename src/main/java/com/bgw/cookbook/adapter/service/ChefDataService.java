@@ -15,4 +15,8 @@ public class ChefDataService implements ChefService {
     public Chef findById(Long id) {
         return repo.findById(id);
     }
+
+    public void updateChef(Chef chef) {
+        repo.updateChef(chef);
+    }
 }

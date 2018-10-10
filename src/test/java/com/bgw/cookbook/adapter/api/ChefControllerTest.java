@@ -6,6 +6,7 @@ import com.bgw.cookbook.domain.event.EventService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
+
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,4 +47,12 @@ public class ChefControllerTest {
         verify(chefService).findById(1L);
     }
 
+    @Test
+    public void updateChef() throws Exception {
+        Chef chef = new Chef();
+        chef.setId(2L);
+        chef.setName("joe");
+        chefService.updateChef(chef);
+        verify(chefService).updateChef(chef);
+    }
 }
