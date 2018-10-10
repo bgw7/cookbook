@@ -1,6 +1,5 @@
-package com.bgw.cookbook.adapter.api.api;
+package com.bgw.cookbook.adapter.api;
 
-import com.bgw.cookbook.adapter.api.ChefController;
 import com.bgw.cookbook.domain.chef.Chef;
 import com.bgw.cookbook.domain.chef.ChefService;
 import com.bgw.cookbook.domain.event.EventService;

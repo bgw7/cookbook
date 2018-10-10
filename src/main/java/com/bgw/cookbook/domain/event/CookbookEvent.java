@@ -62,4 +62,12 @@ public class CookbookEvent<O> implements Event, Serializable {
     public List<Long> getIngredientIds() {
         return ingredientIds;
     }
+
+    public void setRecipeIds(List<Long> recipeIds) {
+        this.recipeIds = recipeIds;
+    }
+
+    public void setIngredientIds(List<Long> ingredientIds) {
+        this.ingredientIds = ingredientIds;
+    }
 }
