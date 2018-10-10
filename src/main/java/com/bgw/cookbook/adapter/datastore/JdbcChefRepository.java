@@ -16,16 +16,24 @@ import java.sql.SQLException;
 @Repository
 public class JdbcChefRepository implements ChefRepository {
 
-    private static final String SQL_Find_Chef_By_Id = "SELECT chef.id, chef.name, ci.id as ingredient_id, ci.added, ci.name as ingredient_name, ci.chef_id, ci.quantity, ci.state " +
+    private static final String SQL_Select_Chef_By_Id = "SELECT chef.id, chef.name, ci.id as ingredient_id, ci.added, ci.name as ingredient_name, ci.chef_id, ci.quantity, ci.state " +
             "FROM Chef chef left join Chef_Ingredient ci on ci.chef_id = chef.id " +
             "WHERE chef.id = :id";
+
+    private static final String SQL_UPDATE_Chef_By_Id = "UPDATE chef set name = :name WHERE id = :id";
 
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public Chef findById(Long id) {
         SqlParameterSource namedParameters = new MapSqlParameterSource("id", id);
-        return jdbcTemplate.query(SQL_Find_Chef_By_Id, namedParameters, new ChefMapper());
+        return jdbcTemplate.query(SQL_Select_Chef_By_Id, namedParameters, new ChefMapper());
+    }
+
+    public void updateChef(Chef chef) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource("id", chef.getId());
+        namedParameters.addValue("name", chef.getName());
+        jdbcTemplate.update(SQL_UPDATE_Chef_By_Id, namedParameters);
     }
 
     private static final class ChefMapper implements ResultSetExtractor<Chef> {

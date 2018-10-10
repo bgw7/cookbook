@@ -14,6 +14,7 @@ import static org.hamcrest.CoreMatchers.isA;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -32,6 +33,15 @@ public class ChefDataServiceTest {
         Chef actualChef = dataService.findById(1L);
 
         assertThat(actualChef, isA(Chef.class));
+    }
+
+    @Test
+    public void updateChef_success() {
+        Chef chef = new Chef();
+        chef.setName("joe");
+        chef.setId(2L);
+        dataService.updateChef(chef);
+        verify(repository).updateChef(chef);
     }
 
 }
