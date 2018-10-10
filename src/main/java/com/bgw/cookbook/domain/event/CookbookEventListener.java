@@ -27,6 +27,12 @@ public class CookbookEventListener implements EventBus.Subscriber {
         this.emitter = new SseEmitter(0L);
     }
 
+    public CookbookEventListener(Long chefId, List<Long> recipeIds, List<Long> ingredientIds) {
+        this.chefId = chefId;
+        this.recipeIds = recipeIds;
+        this.ingredientIds = ingredientIds;
+    }
+
     @Override
     public Observable<Event> register(Observable<Event> events) {
         return events

@@ -12,11 +12,11 @@ public class SendEventPredicate implements Predicate<CookbookEvent> {
 
     @Override
     public boolean test(@NotNull CookbookEvent event) throws Exception {
-        return event.isGlobal() || event.getChefId().equals(listener.getChefId()) || testIdLists(event);
+        return event.isGlobal() || event.getChefId().equals(this.listener.getChefId()) || testIdLists(event);
     }
 
     private boolean testIdLists(CookbookEvent event) {
-        return  CollectionUtils.containsAny(event.getIngredientIds(), listener.getRecipeIds()) ||
-                CollectionUtils.containsAny(event.getRecipeIds(), listener.getRecipeIds());
+        return  CollectionUtils.containsAny(event.getIngredientIds(), this.listener.getIngredientIds()) ||
+                CollectionUtils.containsAny(event.getRecipeIds(), this.listener.getRecipeIds());
     }
 }

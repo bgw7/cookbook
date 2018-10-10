@@ -15,7 +15,7 @@ public class CookbookEventService implements EventService {
     private EventBus bus;
 
     public SseEmitter getStream(Long chefid) {
-        CookbookEventListener listener = new CookbookEventListener(chefid);
+        final CookbookEventListener listener = new CookbookEventListener(chefid);
         Disposable disposable = bus.register(listener);
         listener.setDisposable(disposable);
         return listener.getEmitter();
