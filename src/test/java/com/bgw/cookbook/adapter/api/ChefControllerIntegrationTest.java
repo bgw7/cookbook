@@ -67,7 +67,7 @@ public class ChefControllerIntegrationTest {
 
     @Test
     public void getEventStream_Success() throws Exception {
-        mvc.perform(get("/api/cookbook-events")
+        mvc.perform(get("/public/cookbook-events/1")
         .headers(headers)
         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -75,7 +75,7 @@ public class ChefControllerIntegrationTest {
 
     @Test
     public void getStream_andDispatch() throws Exception {
-        MvcResult result = mvc.perform(get("/api/cookbook-events")
+        MvcResult result = mvc.perform(get("/public/cookbook-events/1")
                 .headers(headers)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -110,7 +110,7 @@ public class ChefControllerIntegrationTest {
 
         when(chefService.findById(chefId)).thenReturn(expectChef);
 
-        mvc.perform(get("/api/chefs/{id}", chefId)
+        mvc.perform(get("/public/chefs/{id}", chefId)
         .headers(headers)
         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

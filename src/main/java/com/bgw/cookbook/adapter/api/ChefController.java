@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/public")
 public class ChefController {
     @Autowired
     private EventService eventService;
@@ -18,8 +18,8 @@ public class ChefController {
     @Autowired
     private ChefService chefService;
 
-    @GetMapping(path = "/cookbook-events", produces = "text/event-stream")
-    public SseEmitter getEventStream(@RequestHeader("ChefId") Long chefId) {
+    @GetMapping(path = "/cookbook-events/{chefId}", produces = "text/event-stream")
+    public SseEmitter getEventStream(@PathVariable("chefId") Long chefId) {
         return eventService.getStream(chefId);
     }
 
