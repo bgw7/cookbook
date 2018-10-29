@@ -1,4 +1,10 @@
+FROM maven:alpine as build-stage
+WORKDIR /app
+COPY ./ /app/
+RUN mvn package
+
 FROM openjdk:8-jdk-alpine
+COPY --from=build-stage /app/target/cookbook-1.jar target/
 
 VOLUME /tmp
 
@@ -10,9 +16,4 @@ CMD java -jar cookbook.jar -Dspring.profiles.active=local
 
 EXPOSE 9999
 
-
-# ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Dserver.port=8888" , "-jar","/cookbook.jar"]
-
-
-
-# docker run -d -e "SPRING_PROFILES_ACTIVE=local" -p 9999:9999 -t spring
+# docker run -d -p 9999:9999
