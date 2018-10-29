@@ -8,11 +8,7 @@ COPY --from=build-stage /app/target/cookbook-1.jar /target
 
 VOLUME /tmp
 
-ARG JAR_FILE=target/cookbook-1.jar
-
-ADD ${JAR_FILE} cookbook.jar
-
-CMD java -jar cookbook.jar -Dspring.profiles.active=local
+CMD java -jar cookbook-1.jar -Dspring.profiles.active=local
 
 EXPOSE 9999
 
