@@ -8,7 +8,7 @@ COPY --from=build-stage /app/target/cookbook-1.jar /target
 
 VOLUME /tmp
 
-CMD java -jar cookbook-1.jar -Dspring.profiles.active=local
+CMD java -jar /target/cookbook-1.jar -Dspring.profiles.active=local
 
 EXPOSE 9999
 
